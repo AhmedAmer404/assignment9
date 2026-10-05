@@ -39,3 +39,34 @@ public class StandardShipment : Shipment, ITrackable, IInsurable
         return EstimatedCost * 0.05m;
     }
 }
+
+public class ExpressShipment : Shipment, ITrackable, IInsurable
+{
+    public decimal ExtraFee { get; set; }
+
+    public override decimal EstimatedCost
+    {
+        get
+        {
+            return Weight * 10 + DeliveryFee + ExtraFee;
+        }
+    }
+
+    public override void PrintShipment()
+    {
+        Console.WriteLine("Express Shipment");
+        Console.WriteLine($"Tracking Code : {TrackingCode}");
+        Console.WriteLine($"Extra Fee : {ExtraFee} EGP");
+        Console.WriteLine($"Estimated Cost: {EstimatedCost} EGP");
+    }
+
+    public string GetTrackingStatus()
+    {
+        return $"Shipment {TrackingCode} is Out for Delivery.";
+    }
+
+    public decimal CalculateInsurance()
+    {
+        return EstimatedCost * 0.08m;
+    }
+}
