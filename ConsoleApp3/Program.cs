@@ -10,3 +10,32 @@
 
     public abstract void PrintShipment();
 }
+
+public class StandardShipment : Shipment, ITrackable, IInsurable
+{
+    public override decimal EstimatedCost
+    {
+        get
+        {
+            return Weight * 10 + DeliveryFee;
+        }
+    }
+
+    public override void PrintShipment()
+    {
+        Console.WriteLine("Standard Shipment");
+        Console.WriteLine($"Tracking Code : {TrackingCode}");
+        Console.WriteLine($"Description : {Description}");
+        Console.WriteLine($"Estimated Cost: {EstimatedCost} EGP");
+    }
+
+    public string GetTrackingStatus()
+    {
+        return $"Shipment {TrackingCode} is Ready.";
+    }
+
+    public decimal CalculateInsurance()
+    {
+        return EstimatedCost * 0.05m;
+    }
+}
