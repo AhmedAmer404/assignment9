@@ -101,3 +101,41 @@ public class InternationalShipment : Shipment, ITrackable, IInsurable
         return EstimatedCost * 0.12m;
     }
 }
+
+public class DeliveryCenter
+{
+    private List<Shipment> shipments = new List<Shipment>();
+
+    public void AddShipment(Shipment shipment)
+    {
+        shipments.Add(shipment);
+    }
+
+    public void PrintAllShipments()
+    {
+        foreach (Shipment shipment in shipments)
+        {
+            shipment.PrintShipment();
+            Console.WriteLine("------------------------------------------");
+        }
+    }
+
+    public void PrintTrackingStatuses()
+    {
+        foreach (Shipment shipment in shipments)
+        {
+            ITrackable trackable = (ITrackable)shipment;
+            Console.WriteLine(trackable.GetTrackingStatus());
+        }
+    }
+
+    public void PrintShipment(ITrackable shipment)
+    {
+        Console.WriteLine(shipment.GetTrackingStatus());
+    }
+
+    public void PrintInsurance(IInsurable shipment)
+    {
+        Console.WriteLine($"Insurance : {shipment.CalculateInsurance():0.00} EGP");
+    }
+}
