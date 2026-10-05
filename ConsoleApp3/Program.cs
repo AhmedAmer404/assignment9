@@ -139,3 +139,72 @@ public class DeliveryCenter
         Console.WriteLine($"Insurance : {shipment.CalculateInsurance():0.00} EGP");
     }
 }
+
+class Program
+{
+    static void Main()
+    {
+        DeliveryCenter center = new DeliveryCenter();
+
+        StandardShipment standard = new StandardShipment
+        {
+            TrackingCode = "SH001",
+            Description = "Laptop",
+            Weight = 5,
+            DeliveryFee = 45
+        };
+
+        ExpressShipment express = new ExpressShipment
+        {
+            TrackingCode = "SH002",
+            Description = "Phone",
+            Weight = 5,
+            DeliveryFee = 20,
+            ExtraFee = 30
+        };
+
+        InternationalShipment international = new InternationalShipment
+        {
+            TrackingCode = "SH003",
+            Description = "Documents",
+            Weight = 10,
+            DeliveryFee = 60,
+            DestinationCountry = "Germany"
+        };
+
+        center.AddShipment(standard);
+        center.AddShipment(express);
+        center.AddShipment(international);
+
+        Console.WriteLine("==========================================");
+        Console.WriteLine("Delivery Center");
+        Console.WriteLine("==========================================");
+
+        center.PrintAllShipments();
+
+        Console.WriteLine("==========================================");
+        Console.WriteLine("Tracking Status");
+        Console.WriteLine("==========================================");
+
+        center.PrintTrackingStatuses();
+
+        Console.WriteLine("==========================================");
+        Console.WriteLine("Insurance");
+        Console.WriteLine("==========================================");
+
+        IInsurable[] insurableShipments =
+        {
+            standard,
+            express,
+            international
+        };
+
+        foreach (IInsurable shipment in insurableShipments)
+        {
+            center.PrintInsurance(shipment);
+        }
+
+        Console.WriteLine("==========================================");
+        Console.WriteLine("Interface Polymorphism Demonstrated Successfully.");
+    }
+}
