@@ -70,3 +70,34 @@ public class ExpressShipment : Shipment, ITrackable, IInsurable
         return EstimatedCost * 0.08m;
     }
 }
+
+public class InternationalShipment : Shipment, ITrackable, IInsurable
+{
+    public string DestinationCountry { get; set; }
+
+    public override decimal EstimatedCost
+    {
+        get
+        {
+            return Weight * 20 + DeliveryFee;
+        }
+    }
+
+    public override void PrintShipment()
+    {
+        Console.WriteLine("International Shipment");
+        Console.WriteLine($"Tracking Code : {TrackingCode}");
+        Console.WriteLine($"Destination Country : {DestinationCountry}");
+        Console.WriteLine($"Estimated Cost : {EstimatedCost} EGP");
+    }
+
+    public string GetTrackingStatus()
+    {
+        return $"Shipment {TrackingCode} has been Delivered.";
+    }
+
+    public decimal CalculateInsurance()
+    {
+        return EstimatedCost * 0.12m;
+    }
+}
